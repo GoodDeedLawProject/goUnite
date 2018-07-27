@@ -7,6 +7,7 @@ import UserProfile from '@/components/user/Profile'
 import UserActivity from '@/components/user/Activity'
 import Settings from '@/pages/Settings'
 import Counter from '@/components/Counter'
+import NewEvent from '@/pages/NewEvent'
 
 Vue.use(Router)
 
@@ -28,6 +29,11 @@ export default new Router({
       name: 'EventDetails',
       component: EventDetails,
       props: true
+    },
+    {
+      path: '/newevent',
+      name: 'NewEvent',
+      component: NewEvent
     },
     {
       path: '/user/:username',
