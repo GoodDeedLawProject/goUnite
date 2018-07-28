@@ -58,7 +58,25 @@ $helper: 14px;
   height: $helper;
   z-index: 1;
   width: 100%;
+  border-top: 2px solid #999;
+}
+
+.text-field::after {
+  content: '';
+  display: block;
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  height: $helper;
+  z-index: 1;
+  width: 0;
   border-top: 2px solid $textColor;
+  transition: 0.3s all ease;
+}
+
+.text-field.focused::after {
+  width: 100%;
 }
 
 input {
