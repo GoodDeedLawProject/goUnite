@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="top">
     <h1>New Event</h1>
     <div class="new-event-steps">
       <div class="step step-0">
@@ -7,6 +7,9 @@
         <text-field name="Name" v-model="name"></text-field>
         <text-field name="Organizer" v-model="organizer"></text-field>
         <text-field name="Location" v-model="location"></text-field>
+        <text-field name="Address" v-model="address"></text-field>
+        <text-field name="City" v-model="city"></text-field>
+        <!-- <select-field name="State" :options="stateList" v-model="stateCode"></select-field> -->
         <!-- <label for="name">Name</label>
         <input type="text" id="name" v-model="name"> -->
         <!-- <label for="location">Location</label>
@@ -77,7 +80,8 @@
 
 <script>
 import { mapState, mapMutations } from 'vuex'
-import TextField from '@/components/inputs/TextField'
+import TextField from '@/components/inputs/TextFieldRound'
+import SelectField from '@/components/inputs/SelectField'
 
 export default {
   data: () => ({
@@ -86,19 +90,27 @@ export default {
     location: null,
     address: null,
     city: null,
-    stateCode: null
+    stateCode: null,
+    stateList: [
+      "AL","AK","AZ","AR","CA","CO","CT","DE","FL","GA","HI","ID","IL","IN","IA","KS","KY","LA","ME","MD","MA","MI","MN","MS","MO","MT","NE","NV","NH","NJ","NM","NY","NC","ND","OH","OK","OR","PA","RI","SC","SD","TN","TX","UT","VT","VA","WA","WV","WI","WY"],
   }),
   computed: mapState(["step"]),
   methods: mapMutations(["mergeEventData", "incStep", "decStep"]),
   components: {
-    TextField
+    TextField,
+    SelectField
   }
 };
 </script>
 
 <style lang="scss" scoped>
+.top {
+  margin-left: 10px;
+}
+
 .step {
-  width: 300px;
+  width: 600px;
+  margin-left: 10px;
 }
 </style>
 

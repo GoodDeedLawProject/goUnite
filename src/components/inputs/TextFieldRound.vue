@@ -42,49 +42,32 @@ $helper: 14px;
 .text-field{
   position: relative;
   width: calc(100% - 10px);
-  height: calc(30px - #{$helper});
-  height: 54px;
-  margin-bottom: 5px;
-  margin: auto;
-  color: $textColor;
+  // height: calc(30px - #{$helper});
+  // height: 54px;
+  margin: 10px 0;
+  // margin-bottom: 5px;
+  // margin: auto;
+  color: $inputGray;
+  padding: 10px 10px;
+  border: 1px solid $inputGray;
+  border-radius: 4px;
+  transition: 0.1s ease all;
 }
 
-.text-field::before {
-  content: '';
-  display: block;
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  height: $helper;
-  z-index: 1;
-  width: 100%;
-  border-top: 2px solid #999;
-}
-
-.text-field::after {
-  content: '';
-  display: block;
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  height: $helper;
-  z-index: 1;
-  width: 0;
-  border-top: 2px solid $textColor;
-  transition: 0.3s all ease;
-}
-
-.text-field.focused::after {
-  width: 100%;
+.text-field.focused {
+  color: black;
+  border-color: black;
 }
 
 input {
-  margin-top: 5px;
-  color: $textColor;
+  margin-top: 3px;
+  margin-bottom: 3px;
+  color: inherit;
   font-family: $bodyFont;
   outline: transparent;
   border: none;
+  border-bottom: 1px solid;
+  border-color: inherit;
   width: 100%;
   padding: 5px;
   height: calc(100% - #{$helper});
@@ -94,15 +77,18 @@ input {
 label {
   position: absolute;
   top: 15px;
-  left: 5px;
+  left: 15px;
   z-index: 1;
   transition: all ease 0.2s;
+  color: inherit;
 }
 
 .text-field.focused label, .text-field.filled label {
   font-size: 9pt;
-  top: 0;
+  top: 4px;
 }
+
+
 
 .helper {
   position: absolute;
