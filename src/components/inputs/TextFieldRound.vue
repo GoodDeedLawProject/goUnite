@@ -1,33 +1,39 @@
 <template>
   <div class="text-field" :class="classObject">
     <label :for="this._uid+'in'">{{ name }}</label>
-    <input :id="this._uid+'in'" type="text" ref="input" @blur="blur()" @focus="focus()" @input="updateVal()">
+    <input :id="this._uid+'in'" type="text" ref="input" :value="value" @blur="blur()" @focus="focus()" @input="updateVal()">
     <span class="helper">{{ errorMsg }}</span>
   </div>
 </template>
 
 <script>
 export default {
-  props: ['name'],
+  props: ['name', 'value'],
   data: () => ({
     errorMsg: 'Required',
-    classObject: {
-      'focused': false,
-      'helpShowing': false
-    }
+    isFocused: false,
+    isHelpShowing: false
   }),
+  computed: {
+    classObject() {
+      return {
+        'focused': this.isFocused,
+        'helpShowing': this.isHelpShowing,
+        'filled': (this.value != '' && this.value != null)
+      }
+    }
+  },
   methods: {
-    changeHelp(val){
-      this.classObject.helpShowing = (val !== undefined) ? val : !(this.classObject.helpShowing)
+    changeHelp(val) {
+      this.isHelpShowing = (val !== undefined) ? val : !(this.classObject.helpShowing)
     },
     blur() {
-      this.classObject.focused = false
+      this.isFocused = false
     },
     focus() {
-      this.classObject.focused = true
+      this.isFocused = true
     },
     updateVal() {
-      this.classObject['filled'] = this.$refs.input.value != ''
       this.$emit('input', this.$refs.input.value)
     }
   }
@@ -51,7 +57,7 @@ $helper: 14px;
   padding: 10px 10px;
   border: 1px solid $inputGray;
   border-radius: 4px;
-  transition: 0.1s ease all;
+  transition: all linear 0.1s;
 }
 
 .text-field.focused {
@@ -79,13 +85,15 @@ label {
   top: 15px;
   left: 15px;
   z-index: 1;
-  transition: all ease 0.2s;
+  transition: all ease 0.1s;
+  transition-delay: 0s;
   color: inherit;
 }
 
 .text-field.focused label, .text-field.filled label {
   font-size: 9pt;
-  top: 4px;
+  // top: 4px;
+  transform: translateY(-11px);
 }
 
 

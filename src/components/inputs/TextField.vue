@@ -1,14 +1,14 @@
 <template>
   <div class="text-field" :class="classObject">
     <label :for="this._uid+'in'">{{ name }}</label>
-    <input :id="this._uid+'in'" type="text" ref="input" @blur="blur()" @focus="focus()" @input="updateVal()">
+    <input :id="this._uid+'in'" :value="value" type="text" ref="input" @blur="blur()" @focus="focus()" @input="updateVal()">
     <span class="helper">{{ errorMsg }}</span>
   </div>
 </template>
 
 <script>
 export default {
-  props: ['name'],
+  props: ['name', 'value'],
   data: () => ({
     errorMsg: 'Required',
     classObject: {

@@ -4,11 +4,13 @@
     <div class="new-event-steps">
       <div class="step step-0">
         <h2 class="title">Event Information</h2>
-        <text-field name="Name" v-model="name"></text-field>
+        <text-field name="Name" ref="comp" v-model="name"></text-field>
         <text-field name="Organizer" v-model="organizer"></text-field>
         <text-field name="Location" v-model="location"></text-field>
         <text-field name="Address" v-model="address"></text-field>
         <text-field name="City" v-model="city"></text-field>
+        <div class="btn" @click="setMill()">Here</div>
+        <div class="btn" @click="tryAgain()">Thisone</div>
         <!-- <select-field name="State" :options="stateList" v-model="stateCode"></select-field> -->
         <!-- <label for="name">Name</label>
         <input type="text" id="name" v-model="name"> -->
@@ -95,7 +97,17 @@ export default {
       "AL","AK","AZ","AR","CA","CO","CT","DE","FL","GA","HI","ID","IL","IN","IA","KS","KY","LA","ME","MD","MA","MI","MN","MS","MO","MT","NE","NV","NH","NJ","NM","NY","NC","ND","OH","OK","OR","PA","RI","SC","SD","TN","TX","UT","VT","VA","WA","WV","WI","WY"],
   }),
   computed: mapState(["step"]),
-  methods: mapMutations(["mergeEventData", "incStep", "decStep"]),
+  methods: {
+    setMill() {
+      // eslint-disable-next-line
+      console.log('There')
+      this.name = "Millville"
+    },
+    tryAgain() {
+      this.$refs.comp.retry()
+    },
+    ...mapMutations(["mergeEventData", "incStep", "decStep"])
+  },
   components: {
     TextField,
     SelectField
@@ -111,6 +123,12 @@ export default {
 .step {
   width: 600px;
   margin-left: 10px;
+}
+
+.btn {
+  margin: 5px;
+  background: gray;
+  border: 1px solid black;
 }
 </style>
 
