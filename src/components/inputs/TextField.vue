@@ -1,8 +1,9 @@
 <template>
   <div class="text-field" :class="classObject">
+    <!-- <div @click="toggleHelp()" class="helpToggle">H</div> -->
     <label :for="this._uid+'in'">{{ name }}</label>
-    <input :id="this._uid+'in'" :value="value" type="text" ref="input" @blur="blur()" @focus="focus()" @input="updateVal()">
-    <span class="helper">{{ errorMsg }}</span>
+    <input :id="this._uid+'in'" type="text" ref="input" :value="value" @blur="blur()" @focus="focus()" @input="updateVal()">
+    <span class="helper">{{ helperMsg }}</span>
   </div>
 </template>
 
@@ -10,25 +11,37 @@
 export default {
   props: ['name', 'value'],
   data: () => ({
-    errorMsg: 'Required',
-    classObject: {
-      'focused': false,
-      'helpShowing': false
-    }
+    helperMsg: 'Required',
+    isFocused: false,
+    isHelpShowing: false
   }),
+  computed: {
+    classObject() {
+      return {
+        'focused': this.isFocused,
+        'helpShowing': this.isHelpShowing,
+        'filled': (this.value != '' && this.value != null)
+      }
+    }
+  },
   methods: {
-    changeHelp(val){
-      this.classObject.helpShowing = (val !== undefined) ? val : !(this.classObject.helpShowing)
+    changeHelp(val) {
+      this.isHelpShowing = (val !== undefined) ? val : !(this.classObject.helpShowing)
     },
     blur() {
-      this.classObject.focused = false
+      this.isFocused = false
     },
     focus() {
-      this.classObject.focused = true
+      this.isFocused = true
     },
     updateVal() {
-      this.classObject['filled'] = this.$refs.input.value != ''
       this.$emit('input', this.$refs.input.value)
+    },
+    toggleHelp() {
+      this.isHelpShowing = !this.isHelpShowing
+      if(this.classObject.filled){
+        this.helperMsg = this.value
+      }
     }
   }
 }
@@ -38,6 +51,18 @@ export default {
 @import 'stylevars';
 
 $helper: 14px;
+
+.helpToggle {
+  position: absolute;
+  height: 100%;
+  width: 20px;
+  top: 0;
+  left: -20px;
+  background: gray;
+  text-align: center;
+  padding: 17px 0;
+  color: white;
+}
 
 .text-field{
   position: relative;

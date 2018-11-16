@@ -18,8 +18,6 @@ export default {
     if(this.$store.state.events.all.length === 0){
       this.$store.dispatch('events/getAllEvents')
     }
-    // eslint-disable-next-line
-    // console.log(this.$store)
   },
   filters: {
     mmddyyyy,

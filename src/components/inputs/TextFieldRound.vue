@@ -1,8 +1,9 @@
 <template>
   <div class="text-field" :class="classObject">
+    <!-- <div @click="toggleHelp()" class="helpToggle">H</div> -->
     <label :for="this._uid+'in'">{{ name }}</label>
     <input :id="this._uid+'in'" type="text" ref="input" :value="value" @blur="blur()" @focus="focus()" @input="updateVal()">
-    <span class="helper">{{ errorMsg }}</span>
+    <span class="helper">{{ helperMsg }}</span>
   </div>
 </template>
 
@@ -10,7 +11,7 @@
 export default {
   props: ['name', 'value'],
   data: () => ({
-    errorMsg: 'Required',
+    helperMsg: 'Required',
     isFocused: false,
     isHelpShowing: false
   }),
@@ -24,7 +25,7 @@ export default {
     }
   },
   methods: {
-    changeHelp(val) {
+    changeHelpMsg(val) {
       this.isHelpShowing = (val !== undefined) ? val : !(this.classObject.helpShowing)
     },
     blur() {
@@ -35,6 +36,12 @@ export default {
     },
     updateVal() {
       this.$emit('input', this.$refs.input.value)
+    },
+    toggleHelpMsg() {
+      this.isHelpShowing = !this.isHelpShowing
+      if(this.classObject.filled){
+        this.helperMsg = this.value
+      }
     }
   }
 }
@@ -45,7 +52,19 @@ export default {
 
 $helper: 14px;
 
-.text-field{
+.helpToggle {
+  position: absolute;
+  height: 100%;
+  width: 20px;
+  top: 0;
+  left: -20px;
+  background: gray;
+  text-align: center;
+  padding: 17px 0;
+  color: white;
+}
+
+.text-field {
   position: relative;
   width: calc(100% - 10px);
   // height: calc(30px - #{$helper});
@@ -96,13 +115,11 @@ label {
   transform: translateY(-11px);
 }
 
-
-
 .helper {
   position: absolute;
   font-size: 8pt;
   bottom: 0;
-  left: 5px;
+  left: 15px;
   visibility: hidden;
 }
 

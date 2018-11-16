@@ -1,11 +1,11 @@
-import api from '../../../api/backend'
+import api from '@/../api/backend'
 
 const state = {
   all: []
 }
 
 const getters = {
-  getEventById: (state) => (id) =>{
+  getEventById: (state) => (id) => {
     return state.all.find(event => event.id === id)
   }
 }

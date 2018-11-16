@@ -8,6 +8,7 @@ import UserActivity from '@/components/user/Activity'
 import Settings from '@/pages/Settings'
 import Counter from '@/components/Counter'
 import NewEvent from '@/pages/NewEvent'
+import Landing from '@/pages/Landing'
 
 Vue.use(Router)
 
@@ -20,6 +21,11 @@ export default new Router({
   routes: [
     {
       path: '/',
+      name: 'Landing',
+      component: Landing
+    },
+    {
+      path: '/events',
       name: 'EventsList',
       component: EventsList
     },

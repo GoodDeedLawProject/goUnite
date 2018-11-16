@@ -4,13 +4,13 @@
     <div class="new-event-steps">
       <div class="step step-0">
         <h2 class="title">Event Information</h2>
-        <text-field name="Name" ref="comp" v-model="name"></text-field>
-        <text-field name="Organizer" v-model="organizer"></text-field>
-        <text-field name="Location" v-model="location"></text-field>
-        <text-field name="Address" v-model="address"></text-field>
-        <text-field name="City" v-model="city"></text-field>
+        <text-field name="Name" ref="comp" v-model="formData.name"></text-field>
+        <text-field name="Organizer" v-model="formData.organizer"></text-field>
+        <text-field name="Location" v-model="formData.location"></text-field>
+        <text-field name="Address" v-model="formData.address"></text-field>
+        <text-field name="City" v-model="formData.city"></text-field>
         <div class="btn" @click="setMill()">Here</div>
-        <div class="btn" @click="tryAgain()">Thisone</div>
+        <div class="btn" @click="submit()">Submit</div>
         <!-- <select-field name="State" :options="stateList" v-model="stateCode"></select-field> -->
         <!-- <label for="name">Name</label>
         <input type="text" id="name" v-model="name"> -->
@@ -74,7 +74,6 @@
           <option value="WI">Wisconsin</option>
           <option value="WY">Wyoming</option>
         </select> -->
-        
       </div>
     </div>
   </div>
@@ -87,26 +86,28 @@ import SelectField from '@/components/inputs/SelectField'
 
 export default {
   data: () => ({
-    name: null,
-    organizer: null,
-    location: null,
-    address: null,
-    city: null,
-    stateCode: null,
-    stateList: [
-      "AL","AK","AZ","AR","CA","CO","CT","DE","FL","GA","HI","ID","IL","IN","IA","KS","KY","LA","ME","MD","MA","MI","MN","MS","MO","MT","NE","NV","NH","NJ","NM","NY","NC","ND","OH","OK","OR","PA","RI","SC","SD","TN","TX","UT","VT","VA","WA","WV","WI","WY"],
+    formData: {
+      name: '',
+      organizer: '',
+      location: '',
+      address: '',
+      city: '',
+      // stateCode: '',
+      // stateList: [
+      //   "AL","AK","AZ","AR","CA","CO","CT","DE","FL","GA","HI","ID","IL","IN","IA","KS","KY","LA","ME","MD","MA","MI","MN","MS","MO","MT","NE","NV","NH","NJ","NM","NY","NC","ND","OH","OK","OR","PA","RI","SC","SD","TN","TX","UT","VT","VA","WA","WV","WI","WY"],
+    }
   }),
-  computed: mapState(["step"]),
+  computed: mapState(["step", "eventData"]),
   methods: {
     setMill() {
       // eslint-disable-next-line
       console.log('There')
-      this.name = "Millville"
+      this.formData.name = "Millville"
     },
-    tryAgain() {
-      this.$refs.comp.retry()
+    submit() {
+      this.$store.commit('mergeEventData', this.formData)
     },
-    ...mapMutations(["mergeEventData", "incStep", "decStep"])
+    ...mapMutations(["mergeEventData", "incStep", "decStep"]),
   },
   components: {
     TextField,
